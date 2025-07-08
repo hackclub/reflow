@@ -49,3 +49,4 @@ out/
 .venv/
 .python_version
 uv.lock
+sanity_output/

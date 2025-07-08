@@ -7,8 +7,8 @@ from github import PopulateDeps
 import pkgutil
 import importlib
 import os
+import shutil
 import logging
-import glob
 from types import ModuleType
 from typing import Any, Type
 
@@ -64,26 +64,26 @@ if __name__ == "__main__":
         task_results.append(task.OutputMessage)
 
     try: 
-        os.rmdir("output/")
+        shutil.rmtree("sanity_output/")
     except FileNotFoundError:
         True
-    os.mkdir("output/")
+    os.mkdir("sanity_output/")
 
-    with open("output/errors.log", "a") as errlog:
+    with open("sanity_output/errors.log", "a") as errlog:
         if len(failures) != 0:
         # append greeting to failure
-            errlog.write(f"Your board failed the automated review phase due to the following reasons:")
+            errlog.write("Your board failed the automated review phase due to the following reasons:")
             for r in failures:
                 logger.error(r)
                 errlog.write(f"- {r}\n")
         else:
-            errlog.write(f"Your PR has no errors that were automatically detected. Take a breather and grab yourself a little snack to celebrate! 🎉")
+            errlog.write("Your PR has no errors that were automatically detected. Take a breather and grab yourself a little snack to celebrate! 🎉")
     
     for r in task_results:
         logger.info(r)
-        with open("output/tasks.log", "a") as tsklog:
+        with open("sanity_output/tasks.log", "a") as tsklog:
             tsklog.write(f"- {r}\n")
 
-        
+    
 
     exit(0 if stat else 1)

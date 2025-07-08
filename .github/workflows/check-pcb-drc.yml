@@ -44,7 +44,7 @@ jobs:
         run: |
           echo 'Heyo! Reflow's automated review bot here. There's a series of things you should keep note of:
           echo '```' > output.txt
-          cat info.log >> output.txt
+          cat sanity_output/info.log >> output.txt
           echo '```' >> output.txt
           echo "FILE_CONTENT<<EOF" >> $GITHUB_ENV
           cat output.txt >> $GITHUB_ENV
