@@ -1,7 +1,7 @@
 from . import intent # intent deps
 
 class FilePathValidityIntent(intent.Intent):
-    def check(self):
+    def check(self) -> bool:
         
         self.FailureReason = "Invalid or backtracking file path"
 

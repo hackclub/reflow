@@ -1,6 +1,6 @@
 from . import intent # intent deps
 class FileTypesIntent(intent.Intent):
-    def check(self):
+    def check(self) -> bool:
         self.FailureReason = "Presence of non-KiCAD files"
 
         status = True

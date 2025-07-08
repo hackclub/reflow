@@ -17,6 +17,7 @@ _autosave-*
 *-save.pro
 *-save.kicad_pcb
 fp-info-cache
+*.log
 
 # Netlist files (exported from Eeschema)
 *.net
@@ -43,3 +44,7 @@ out/
 *production/
 
 # End of https://www.toptal.com/developers/gitignore/api/kicad
+*.pyc
+.ruff_cache/
+.venv/
+.python_version
