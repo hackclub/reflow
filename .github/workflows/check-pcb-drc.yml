@@ -63,14 +63,12 @@ jobs:
             -d "{\"body\": \"${{ env.FILE_CONTENT }}\"}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/$PR_NUMBER/comments"
 
-      - name: Upload error log
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-report
-          path: errors.log
+      - name: Compress output folder
+        id: output_compression
+        run: tar -czvf output.tar.gz output/
 
-      - name: Upload tasks log
+      - name: Upload output
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
-          path: tasks.log
+          path: output.tar.gz
