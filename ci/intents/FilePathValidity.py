@@ -1,20 +1,18 @@
-
-from . import intent
-import logging
+from . import intent # intent deps
 
 class FilePathValidityIntent(intent.Intent):
-    def check(self):
-        logger = logging.getLogger(__name__)
+    def check(self) -> bool:
+        
         self.FailureReason = "Invalid or backtracking file path"
 
         status = True
 
         for file in self.deps.files_list:
             if not file.startswith("pcb/") or ".." in file:
-                logger.error(f'FAIL: {file}')
+                self.logger.error(f'FAIL: {file}')
                 status = False
             else:
-                logger.info(f'Pass: {file}')
+                self.logger.info(f'Pass: {file}')
         
         # no files attempt to escape the pcb/ directory, assume good intent
         return status

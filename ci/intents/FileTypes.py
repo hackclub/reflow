@@ -1,20 +1,16 @@
-
-from . import intent
-import logging
-
+from . import intent # intent deps
 class FileTypesIntent(intent.Intent):
-    def check(self):
-        logger = logging.getLogger(__name__)
+    def check(self) -> bool:
         self.FailureReason = "Presence of non-KiCAD files"
 
         status = True
 
         for file in self.deps.files_list:
             if not file.endswith(("kicad_dru","kicad_sch","kicad_pcb","kicad_pro", "md")):
-                logger.error(f'File FAILS: {file}')
+                self.logger.error(f'File FAILS: {file}')
                 status = False
             else:
-                logger.info(f'File Passes: {file}')
+                self.logger.info(f'File Passes: {file}')
         
         # no non-kicad files are being added by repository, assume good intent
         return status
