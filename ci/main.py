@@ -63,11 +63,13 @@ if __name__ == "__main__":
         task.run()
         task_results.append(task.OutputMessage)
 
-    # wipe all logs
-    for f in glob.glob("*.log"):
-        os.remove(f)
+    try: 
+        os.rmdir("output/")
+    except FileNotFoundError:
+        True
+    os.mkdir("output/")
 
-    with open("errors.log", "a") as errlog:
+    with open("output/errors.log", "a") as errlog:
         if len(failures) != 0:
         # append greeting to failure
             errlog.write(f"Your board failed the automated review phase due to the following reasons:")
@@ -79,8 +81,8 @@ if __name__ == "__main__":
     
     for r in task_results:
         logger.info(r)
-        with open("tasks.log", "a") as tsklog:
-            tsklog.write(f"- {r}")
+        with open("output/tasks.log", "a") as tsklog:
+            tsklog.write(f"- {r}\n")
 
         
 

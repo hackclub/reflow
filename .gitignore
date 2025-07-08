@@ -48,3 +48,4 @@ out/
 .ruff_cache/
 .venv/
 .python_version
+uv.lock
