@@ -38,30 +38,6 @@ jobs:
           cd ci 
           uv sync 
           uv run python main.py
-      
-      - name: Read logs
-        id: logs
-        run: |
-          echo 'Heyo! Reflow's automated review bot here. There's a series of things you should keep note of:
-          echo '```' > output.txt
-          cat sanity_output/info.log >> output.txt
-          echo '```' >> output.txt
-          echo "FILE_CONTENT<<EOF" >> $GITHUB_ENV
-          cat output.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      # yall deesrve honesty so imma go out on a limb and say this was vibe coded. it's.... okay? we'll see ig!
-      - name: Post comment on PR
-        if: github.event_name == 'pull_request'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          curl -s -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"body\": \"${{ env.FILE_CONTENT }}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/$PR_NUMBER/comments"
 
       - name: Compress output folder
         id: output_compression

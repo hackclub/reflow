@@ -2,8 +2,10 @@ from intents.intent import PresetDependency
 from logging import Logger
 from intents.intent import Intent
 from tasks.task import Task
-from github import PopulateDeps
+from github import PopulateDeps, PublishLog
+from util import AssembleOutputLog
 
+import asyncio
 import pkgutil
 import importlib
 import os
@@ -69,20 +71,9 @@ if __name__ == "__main__":
         True
     os.mkdir("sanity_output/")
 
-    with open("sanity_output/errors.log", "a") as errlog:
-        if len(failures) != 0:
-        # append greeting to failure
-            errlog.write("Your board failed the automated review phase due to the following reasons:")
-            for r in failures:
-                logger.error(r)
-                errlog.write(f"- {r}\n")
-        else:
-            errlog.write("Your PR has no errors that were automatically detected. Take a breather and grab yourself a little snack to celebrate! 🎉")
-    
-    for r in task_results:
-        logger.info(r)
-        with open("sanity_output/tasks.log", "a") as tsklog:
-            tsklog.write(f"- {r}\n")
+    finlog: str = AssembleOutputLog.AssembleOutputLog(failures, task_results)
+    asyncio.run(PublishLog.PublishGithubComment(finlog))
+
 
     
 

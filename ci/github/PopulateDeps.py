@@ -6,8 +6,8 @@ import requests
 
 from intents.intent import PresetDependency
 
-def GenerateDefaultDependenciesObject():
-    logger = logging.getLogger(__name__)
+def GenerateDefaultDependenciesObject() -> PresetDependency:
+    logger: Logger = logging.getLogger(__name__)
 
     # populate environment
     try:
