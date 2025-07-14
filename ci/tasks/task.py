@@ -5,6 +5,7 @@ class Task:
         self.OutputMessage = ""
         self.logger = logging.getLogger(__name__)
         self.OutputResult = ""
+        self.final = False
         
 if __name__ == "__main__":
     print("\033[91m MANKIND IS DEAD. BLOOD IS FUEL. HELL IS FULL\033[0m \n talk is dull, send patches. hi@pomonella.dev")

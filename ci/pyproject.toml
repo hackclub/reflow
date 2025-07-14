@@ -5,6 +5,7 @@ description = "Checks for Reflow's Continuous Integration and Automated Submissi
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "githubkit>=0.12.16",
     "pyrefly>=0.23.0",
     "requests>=2.32.3",
     "ruff>=0.11.13",
