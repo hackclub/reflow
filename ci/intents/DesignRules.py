@@ -11,7 +11,7 @@ class DesignRulesIntent(intent.Intent):
             if file.endswith(("kicad_pcb")):
                 self.logger.info(f'Checking File for DRC Failures: {file}')
                 try:
-                    report: CompletedProcess[bytes] = subprocess.run(f"kicad-cli pcb drc --schematic-parity --severity-error --exit-code-violations -o /tmp/report ../{file}")
+                    report: CompletedProcess[bytes] = subprocess.run(f"kicad-cli pcb drc --schematic-parity --severity-error --exit-code-violations -o /tmp/report ../{file}", shell=True)
                     if report.returncode != 0:
                         self.logger.error(f'File {file} failed!')
                         status = False
