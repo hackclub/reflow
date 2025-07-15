@@ -35,16 +35,21 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_REPO: ${{ github.repository }}
         run: |
-          cd ci 
-          uv sync 
-          uv run python main.py
+          bash -c "cd ci; uv sync; uv run python main.py"
+
+      - name: Debug terminal, if need be.
+        if: env.ACTIONS_STEP_DEBUG == 'true'
+        uses: lhotari/action-upterm@v1
 
       - name: Compress output folder
+        if: always()
         id: output_compression
-        run: tar -czvf output.tar.gz output/
+        run: tar -czvf output.tar.gz sanity_output/
 
       - name: Upload output
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: output.tar.gz
+
