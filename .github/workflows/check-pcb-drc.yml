@@ -5,6 +5,12 @@ on:
     paths:
       - '**/*.kicad_pcb'
     types: [opened, synchronize, reopened, assigned]
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug terminal'
+        required: false
+        default: 'false'
 
 jobs:
   check-pcb:
@@ -38,7 +44,7 @@ jobs:
           bash -c "cd ci; uv sync; uv run python main.py"
 
       - name: Debug terminal, if need be.
-        if: env.ACTIONS_STEP_DEBUG == 'true'
+        if: inputs.debug == 'true'
         uses: lhotari/action-upterm@v1
 
       - name: Compress output folder
