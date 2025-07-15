@@ -44,7 +44,6 @@ jobs:
           bash -c "cd ci; uv sync; uv run python main.py"
 
       - name: Debug terminal, if need be.
-        if: inputs.debug == 'true'
         uses: lhotari/action-upterm@v1
 
       - name: Compress output folder
