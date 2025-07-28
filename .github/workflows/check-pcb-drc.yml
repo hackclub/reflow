@@ -1,7 +1,7 @@
 name: KiCad PCB Check
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - '**/*.kicad_pcb'
     types: [opened, synchronize, reopened, assigned]
@@ -12,7 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
+        # God bless chatgpt.
+        # yes, this code was overlooked and i know exactly what it does.
+      - name: Sparse checkout pcb/ directory
+        id: sparse-pcb-checkout
+        run: |
+          git restore --source=${{ github.sha }} --staged --worktree pcb/
+
+          
       # Install KiCad tools (if needed)
       - name: Install KiCad
         id: kicad-inst
