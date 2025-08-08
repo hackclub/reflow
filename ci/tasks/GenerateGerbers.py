@@ -2,8 +2,9 @@ import subprocess
 from . import task
 
 class UploadToKiCanvasTask(task.Task):
-    def load(self) -> None:
-        self.OutputMessage = "Gerbers have been generated and attached to the output artifact"
+    def __init__(self, deps) -> None:
+        super().__init__(deps)
+        self.runlevel = 4
 
     def run(self) -> None:
         for file in self.deps.files_list:

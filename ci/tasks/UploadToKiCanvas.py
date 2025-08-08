@@ -2,8 +2,11 @@ from . import task
 import urllib.parse
 
 class UploadToKiCanvasTask(task.Task):
-    def load(self) -> None:
+    def __init__(self, deps) -> None:
+        super().__init__(deps)
         self.OutputMessage = "The KiCanvas link for manual review is available "
+        self.runlevel = 4
+
 
     def run(self) -> None:
         instances = 0

@@ -3,8 +3,12 @@ import subprocess # check deps
 from . import intent # intent deps
 
 class DesignRulesIntent(intent.Intent):
-    def check(self) -> bool:
+    def __init__(self, deps) -> None:
+        super().__init__(deps)
         self.FailureReason = "PCB does not pass DRC"
+        self.runlevel = 3
+
+    def check(self) -> bool:
         status = True
 
         for file in self.deps.files_list:

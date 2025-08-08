@@ -1,10 +1,12 @@
 from . import intent # intent deps
 
 class FilePathValidityIntent(intent.Intent):
-    def check(self) -> bool:
-        
+    def __init__(self, deps) -> None:
+        super().__init__(deps)
         self.FailureReason = "Invalid or backtracking file path"
+        self.runlevel = 3
 
+    def check(self) -> bool: 
         status = True
 
         for file in self.deps.files_list:

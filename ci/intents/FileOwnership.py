@@ -4,8 +4,12 @@ import requests
 import json
 
 class FilePathValidityIntent(intent.Intent):
-    def check(self) -> bool:
+    def __init__(self, deps) -> None:
+        super().__init__(deps)
         self.FailureReason = "Pull request edits files the author does not posess the latest modification over."
+        self.runlevel = 3
+
+    def check(self) -> bool:
         status = True
         for file in self.deps.files_list:
             # Ping github API, get last author of file.
