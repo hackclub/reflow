@@ -2,6 +2,21 @@
 
 This folder contains the python scripts required to complete automated review of PCB commits to the Reflow repository.
 
+## Instructions for Use (ur welcone jenin)
+1. General upkeep - cd into the repository, selectively clone your PR with `git restore --source=${{ github.sha }} --staged --worktree pcb/` (where github.sha is the hash of the latest commit of the PR)
+3. cd into /ci/
+4. If you have `uv` installed, make a venv with `uv venv` and then `uv sync` deps.
+5. Run the script with `uv run main.py`.
+
+There's a series of flags or environment variables you need to set. The mandatory ones are:
+- `-r` | determines the repository you work on. Usually hackclub/reflow, previouly pmnlla/reload.
+- `-p` | The # of the pull request within that repo.
+- `--token` | Github auth token. Used due to its much higher ratelimits in opposition to non-authenticated requests.
+
+And a couple you'll want to keep watch over:
+- `-v` | Verbose logging. Emable this to see task output as well as better logs of which files get processed.
+- `--dryrun` | Dry run - will _not_ send a comment to github underneath the PR.
+
 ## Adding a new intent
 
 A new intent is defined in the intents/ folder as a python script, inheriting the `intent` type and defining a `check()` function.
